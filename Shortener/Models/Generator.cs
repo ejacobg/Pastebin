@@ -15,6 +15,7 @@ namespace Shortener.Models
         /// <summary>
         /// Generate creates a new key based on the incoming request data (not necessarily the paste itself).
         /// Generate is not guaranteed to create unique keys for all requests.
+        /// Multiple calls to Generate should produce different results(?)
         /// </summary>
         /// <param name="context">the request containing the paste to be shortened.</param>
         /// <returns>A base62-encoded string to be used as a key for the given paste.</returns>
