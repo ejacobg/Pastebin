@@ -23,9 +23,10 @@ namespace Shortener.Models
 
     /// <summary>
     /// IPGenerator creates keys using the algorithm outlined in the
-    /// <see href="https://github.com/donnemartin/system-design-primer/blob/master/solutions/system_design/pastebin/README.md#use-case-user-enters-a-block-of-text-and-gets-a-randomly-generated-link">
+    /// <a href="https://github.com/donnemartin/system-design-primer/blob/master/solutions/system_design/pastebin/README.md#use-case-user-enters-a-block-of-text-and-gets-a-randomly-generated-link">
     /// System Design Primer
-    /// </see>.
+    /// </a>.
+    /// Note that this class requires access to the client IP in order to function properly. Use appropriate middleware when using this in front of a proxy or gateway.
     /// </summary>
     public class IpGenerator : IGenerator
     {
