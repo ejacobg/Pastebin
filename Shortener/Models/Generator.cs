@@ -4,6 +4,7 @@ using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Http;
+using Shortener.Data;
 
 namespace Shortener.Models
 {
@@ -17,9 +18,10 @@ namespace Shortener.Models
         /// Generate is not guaranteed to create unique keys for all requests.
         /// Multiple calls to Generate should produce different results(?)
         /// </summary>
-        /// <param name="context">the request containing the paste to be shortened.</param>
+        /// <param name="context">the original paste request.</param>
+        /// <param name="paste">the parsed paste from the request.</param>
         /// <returns>A base62-encoded string to be used as a key for the given paste.</returns>
-        public string Generate(HttpContext context);
+        public string Generate(HttpContext context, Paste paste);
     }
 
     /// <summary>
@@ -31,7 +33,7 @@ namespace Shortener.Models
     /// </summary>
     public class IpGenerator : IGenerator
     {
-        public string Generate(HttpContext context)
+        public string Generate(HttpContext context, Paste _)
         {
             // Get the IP address of the request.
             // May need middleware to actually get the client's IP into the context, especially if you're running this behind a proxy or API gateway.

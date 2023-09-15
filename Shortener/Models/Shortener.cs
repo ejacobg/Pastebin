@@ -15,9 +15,10 @@ namespace Shortener.Models
         /// <summary>
         /// Shorten performs a shortening operation based off the given request.
         /// </summary>
-        /// <param name="context">the request containing the paste to be shortened.</param>
+        /// <param name="context">the original paste request.</param>
+        /// <param name="paste">the parsed paste from the request.</param>
         /// <returns>A string representing the shortened content.</returns>
-        public Task<string> Shorten(HttpContext context);
+        public Task<string> Shorten(HttpContext context, Paste paste);
     }
 
     /// <summary>
@@ -38,14 +39,14 @@ namespace Shortener.Models
         /// Shorten performs a shortening operation based off the given request.
         /// </summary>
         /// <param name="context">the request containing the paste to be shortened.</param>
+        /// <param name="paste">the parsed paste from the request.</param>
         /// <returns>A string representing the shortened content.</returns>
-        public async Task<string> Shorten(HttpContext context)
+        public async Task<string> Shorten(HttpContext context, Paste paste)
         {
-            var paste = await JsonSerializer.DeserializeAsync<Paste>(context.Request.Body);
             bool saved;
             do
             {
-                paste.Shortlink = _generator.Generate(context);
+                paste.Shortlink = _generator.Generate(context, paste);
                 saved = await _pasteStore.Save(paste);
             } while (!saved);
 
