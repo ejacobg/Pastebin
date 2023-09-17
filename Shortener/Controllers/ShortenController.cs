@@ -6,6 +6,7 @@ using Shortener.Models;
 
 namespace Shortener.Controllers
 {
+    [ApiController]
     public class ShortenController : ControllerBase
     {
         private readonly IShortenerService _shortenerService;

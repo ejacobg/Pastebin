@@ -1,0 +1,40 @@
+POST http://localhost:5000/shorten
+Accept: application/json
+Content-Type: application/json
+
+{
+  "content": "",
+  "expiration": 60
+}
+
+###
+
+POST http://localhost:5000/shorten
+Accept: application/json
+Content-Type: application/json
+
+{
+  "status": "fail - 'content' field is missing",
+  "expiration": 60
+}
+
+###
+
+POST http://localhost:5000/shorten
+Accept: application/json
+Content-Type: application/json
+
+{
+  "content": "60-minute expiration",
+  "expiration": 60
+}
+
+###
+
+POST http://localhost:5000/shorten
+Accept: application/json
+Content-Type: application/json
+
+{
+  "content": "without expiration"
+}
