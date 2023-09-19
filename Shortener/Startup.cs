@@ -33,6 +33,7 @@ namespace Shortener
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddScoped<IPasteStore, SqlServerStore>(); // Comment out this line if you want to use ConsoleStore.
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
