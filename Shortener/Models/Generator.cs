@@ -4,6 +4,7 @@ using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Shortener.Data;
 
 namespace Shortener.Models
@@ -33,6 +34,13 @@ namespace Shortener.Models
     /// </summary>
     public class IpGenerator : IGenerator
     {
+        private readonly ILogger<IpGenerator> _logger;
+
+        public IpGenerator(ILogger<IpGenerator> logger)
+        {
+            _logger = logger;
+        }
+
         public string Generate(HttpContext context, Paste _)
         {
             // Get the IP address of the request.
@@ -40,37 +48,49 @@ namespace Shortener.Models
             var ipAddress = context.Connection.RemoteIpAddress?.ToString();
 
             // Get the current timestamp.
-            var timestamp = DateTimeOffset.Now.ToUnixTimeSeconds(); // This line makes it hard to test. One solution might be to use some middleware that attaches timestamp data to the request.
+            var timestamp =
+                DateTimeOffset.Now
+                    .ToUnixTimeSeconds(); // This line makes it hard to test. One solution might be to use some middleware that attaches timestamp data to the request.
 
             // Take the MD5 hash of the IP address + timestamp.
             var preimage = $"{ipAddress}{timestamp}";
+            _logger.LogInformation(preimage);
             using var md5 = MD5.Create();
             var input = Encoding.ASCII.GetBytes(preimage);
             var hash = md5.ComputeHash(input);
+            _logger.LogInformation("Hash: " + string.Join(string.Empty, hash.Select(b => b.ToString("x2"))));
 
             // Base62-encode the MD5 hash.
-            var encoded = Base62.Encode(hash);
+            var encoded = Base62.EncodeBytes(hash);
+            _logger.LogInformation($"Base62 Encoded: '{encoded}'");
 
             // Return the first 7 digits of the encoded hash.
             return encoded[..7];
         }
     }
 
-    public static class Base62
-    {
-        public static string Encode(byte[] bytes)
-        {
-            const string chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-            var result = new StringBuilder();
-            var value = new BigInteger(bytes.Reverse().ToArray());
-
-            while (value > 0)
-            {
-                value = BigInteger.DivRem(value, 62, out var remainder);
-                result.Insert(0, chars[(int)remainder]);
-            }
-
-            return result.ToString();
-        }
-    }
+    // Copied from ChatGPT, but is a little buggy.
+    // public static class Base62
+    // {
+    //     const string chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    //
+    //     public static string Encode(byte[] bytes)
+    //     {
+    //         Console.WriteLine(bytes.Length);
+    //         var result = new StringBuilder();
+    //
+    //         // This reversal operation can produce negative values, which messes with the while-loop below.
+    //         // If `value` is negative, the while-loop won't execute, and will thus return an empty string.
+    //         // This empty string gets sent to the generator, and an exception is thrown when trying to take the first 7 characters.
+    //         var value = new BigInteger(bytes.Reverse().ToArray());
+    //
+    //         while (value > 0)
+    //         {
+    //             value = BigInteger.DivRem(value, 62, out var remainder);
+    //             result.Insert(0, chars[(int)remainder]);
+    //         }
+    //
+    //         return result.ToString();
+    //     }
+    // }
 }

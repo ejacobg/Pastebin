@@ -26,7 +26,9 @@ namespace Shortener.Controllers
 
         public class PasteInput
         {
-            [Required] public string Content { get; set; }
+            [Required]
+            public string Content { get; set; }
+
             public int? Expires { get; set; }
 
             public Paste ToPaste()
