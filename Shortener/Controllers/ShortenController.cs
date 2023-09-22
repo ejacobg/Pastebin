@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Database.Models;
 using Microsoft.AspNetCore.Mvc;
-using Shortener.Data;
 using Shortener.Models;
 
 namespace Shortener.Controllers

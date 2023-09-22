@@ -2,8 +2,8 @@
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Database.Models;
 using Microsoft.AspNetCore.Http;
-using Shortener.Data;
 
 namespace Shortener.Models
 {
