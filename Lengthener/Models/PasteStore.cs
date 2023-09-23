@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Database;
+using Database.Models;
 using Microsoft.EntityFrameworkCore;
-using Shortener.Data;
 
 namespace Lengthener.Models
 {

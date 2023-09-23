@@ -27,7 +27,7 @@ namespace Lengthener.Controllers
 
             // If the current time is after the Created + Expires date, then return an "expired" response.
             // Expired pastes will no longer be tracked by the counter.
-            if (paste.Created.AddMinutes(paste.Expires) > DateTime.Now)
+            if (paste.Created.AddMinutes(paste.Expires) < DateTime.Now)
             {
                 return StatusCode(StatusCodes.Status410Gone);
             }
