@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Lengthener.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace Lengthener.Controllers
 {
@@ -10,10 +11,12 @@ namespace Lengthener.Controllers
     public class LengthenController : ControllerBase
     {
         private readonly IPasteStore _pasteStore;
+        private readonly ILogger<LengthenController> _logger;
 
-        public LengthenController(IPasteStore pasteStore)
+        public LengthenController(IPasteStore pasteStore, ILogger<LengthenController> logger)
         {
             _pasteStore = pasteStore;
+            _logger = logger;
         }
 
         [HttpGet("/lengthen/{shortlink}")]
@@ -31,6 +34,8 @@ namespace Lengthener.Controllers
             {
                 return StatusCode(StatusCodes.Status410Gone);
             }
+
+            _logger.LogInformation("Retrieved shortlink {@shortlink}", shortlink);
 
             return new LengthenResult(
                 paste.Content,

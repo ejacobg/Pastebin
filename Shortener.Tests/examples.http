@@ -2,11 +2,22 @@ POST http://localhost:5000/shorten
 Content-Type: application/json
 
 {
+  "content": "expires in a week",
+  "expires": 10080
+}
+
+###
+
+POST http://localhost:5000/shorten
+Content-Type: application/json
+
+{
   "content": "expires soon",
   "expires": 0
 }
 
 ###
+
 POST http://localhost:5000/shorten
 Accept: application/json
 Content-Type: application/json
