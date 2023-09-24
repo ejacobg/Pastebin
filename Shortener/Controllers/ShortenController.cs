@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Database.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Shortener.Models;
 
 namespace Shortener.Controllers
@@ -10,18 +11,26 @@ namespace Shortener.Controllers
     public class ShortenController : ControllerBase
     {
         private readonly IShortenerService _shortenerService;
+        private readonly ILogger<ShortenController> _logger;
 
-        public ShortenController(IShortenerService shortenerService)
+        public ShortenController(IShortenerService shortenerService, ILogger<ShortenController> logger)
         {
             _shortenerService = shortenerService;
+            _logger = logger;
         }
 
         [HttpPost("/shorten")]
         public async Task<ShortenResult> Shorten([FromBody] PasteInput input)
         {
-            return new ShortenResult(
+            var result = new ShortenResult(
                 await _shortenerService.Shorten(HttpContext, input.ToPaste())
             );
+
+            _logger.LogInformation(
+                "Created shortlink {@shortlink}",
+                result.Shortlink);
+
+            return result;
         }
 
         public class PasteInput
