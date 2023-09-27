@@ -1,8 +1,7 @@
-GET http://localhost:5002/lengthen/missing
+GET {{scheme}}{{host}}:{{port}}/lengthen/missing
 Accept: application/json
 
 ###
-GET http://localhost:5002/lengthen/5SLDf7l
-Accept: application/json
 
-###
+GET {{scheme}}{{host}}:{{port}}/lengthen/CHANGEME
+Accept: application/json

@@ -1,4 +1,4 @@
-POST http://localhost:5000/shorten
+POST {{scheme}}{{host}}:{{port}}/shorten
 Content-Type: application/json
 
 {
@@ -8,7 +8,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:5000/shorten
+POST {{scheme}}{{host}}:{{port}}/shorten
 Content-Type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:5000/shorten
+POST {{scheme}}{{host}}:{{port}}/shorten
 Accept: application/json
 Content-Type: application/json
 
@@ -29,7 +29,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:5000/shorten
+POST {{scheme}}{{host}}:{{port}}/shorten
 Accept: application/json
 Content-Type: application/json
 
@@ -40,7 +40,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:5000/shorten
+POST {{scheme}}{{host}}:{{port}}/shorten
 Accept: application/json
 Content-Type: application/json
 
@@ -51,7 +51,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:5000/shorten
+POST {{scheme}}{{host}}:{{port}}/shorten
 Accept: application/json
 Content-Type: application/json
 
