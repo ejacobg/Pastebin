@@ -31,6 +31,7 @@ namespace Lengthener
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<IPasteStore, SqlServerStore>();
+            services.AddScoped<IPasteStore, EchoStore>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

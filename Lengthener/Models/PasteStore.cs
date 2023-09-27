@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Database;
 using Database.Models;
@@ -25,6 +26,21 @@ namespace Lengthener.Models
             return await _context.Pastes
                 .Where(paste => paste.Shortlink == shortlink)
                 .SingleOrDefaultAsync();
+        }
+    }
+
+    public class EchoStore : IPasteStore
+    {
+        public Task<Paste> GetByShortlink(string shortlink)
+        {
+            return Task.FromResult(new Paste
+            {
+                Content = shortlink,
+                Created = DateTime.Now,
+                Expires = 60,
+                PasteId = 1,
+                Shortlink = shortlink
+            });
         }
     }
 }
