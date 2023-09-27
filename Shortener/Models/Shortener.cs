@@ -53,4 +53,12 @@ namespace Shortener.Models
             return paste.Shortlink;
         }
     }
+
+    public class EchoShortener : IShortenerService
+    {
+        public Task<string> Shorten(HttpContext _, Paste paste)
+        {
+            return Task.FromResult(paste.Content);
+        }
+    }
 }
