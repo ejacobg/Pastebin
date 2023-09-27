@@ -1,0 +1,26 @@
+﻿apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pastebin
+#  annotations:
+#    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /shorten
+            pathType: Prefix
+            backend:
+              service:
+                name: shortener
+                port:
+                  number: 80
+          - path: /lengthen
+            pathType: Prefix
+            backend:
+              service:
+                name: lengthener
+                port:
+                  number: 80
+                
