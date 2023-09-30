@@ -18,7 +18,8 @@ spec:
         fsGroup: 10001
       containers:
         - name: mssql # container name within the pod.
-          image: mcr.microsoft.com/mssql/server:2019-latest
+          image: mssql-pastebin
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 1433
               name: tcpsql
@@ -30,10 +31,7 @@ spec:
             - name: MSSQL_AGENT_ENABLED
               value: "1"
             - name: MSSQL_SA_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mssql
-                  key: MSSQL_SA_PASSWORD
+              value: "StrongPassw0rd" # Hard-coding this for now.
           volumeMounts:
             - name: mssql
               mountPath: "/var/opt/mssql"
@@ -53,7 +51,7 @@ metadata:
   name: sql-server
 spec:
   selector:
-    app: sql-server
+    app: mssql
   ports:
     - protocol: TCP
       port: 1433

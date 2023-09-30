@@ -9,7 +9,10 @@ WORKDIR /usr/config
 COPY . /usr/config
 
 # Grant permissions for to our scripts to be executable
+# https://github.com/microsoft/mssql-docker/issues/541
+USER root
 RUN chmod +x /usr/config/entrypoint.sh
 RUN chmod +x /usr/config/configure-db.sh
+USER mssql
 
 ENTRYPOINT ["./entrypoint.sh"]
