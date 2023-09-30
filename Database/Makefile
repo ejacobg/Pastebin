@@ -13,3 +13,11 @@ update:
 .PHONY: docker/build
 docker/build:
 	docker build . -t mssql-pastebin
+
+.PHONY: docker/run
+docker/run:
+	docker run  -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=StrongPassw0rd' --name mssql-pastebin --rm -p 1433:1433 mssql-pastebin
+
+.PHONY: docker/stop
+docker/stop:
+	docker stop mssql-pastebin
