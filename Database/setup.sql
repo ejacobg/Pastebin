@@ -4,6 +4,10 @@ GO
 USE [Pastebin];
 GO
 
+-- Needed to create indexes.
+SET QUOTED_IDENTIFIER ON;
+SET ANSI_NULLS ON;
+
 -- All code below was generated using the `dotnet ef migrations script`command. See the Makefile.
 
 IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
