@@ -46,7 +46,7 @@ k8s/ingress/delete:
 
 # It's probably better if these are run separately. The ingress takes a bit to get fully set up.
 .PHONY: k8s/apply
-k8s/apply: k8s/ingress/apply k8s/pastebin/apply
+k8s/apply: k8s/pastebin/apply k8s/ingress/apply
 
 .PHONY: k8s/delete
 k8s/delete: k8s/pastebin/delete k8s/ingress/delete
