@@ -1,6 +1,6 @@
 # Pastebin
 
-A Pastebin clone based on the [System Design Primer implementation](https://github.com/donnemartin/system-design-primer/blob/master/solutions/system_design/pastebin/README.md). It allows for shortening of text-based content, and can be deployed to a Kubernetes cluster. For a discussion on the development of this project, see its associated blog post.
+A Pastebin clone based on the [System Design Primer implementation](https://github.com/donnemartin/system-design-primer/blob/master/solutions/system_design/pastebin/README.md). It allows for shortening of text-based content, and can be deployed to a Kubernetes cluster. For a discussion on the development of this project, see its associated [blog post](https://ejacobg.com/projects/pastebin/).
 
 ## Requirements
 
